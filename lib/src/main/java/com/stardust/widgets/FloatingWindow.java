@@ -1,6 +1,8 @@
 package com.stardust.widgets;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
@@ -10,7 +12,7 @@ import android.widget.RelativeLayout;
 /**
  * 一个还没有完成的悬浮窗类，主要用于悬浮小球这类，而不是那种需要权限的全局悬浮窗
  */
-// TODO class stub
+// TODO class
 public class FloatingWindow extends RelativeLayout {
 
     private FloatingViewOnTouchListener mFloatingViewOnTouchListener;
@@ -51,6 +53,8 @@ public class FloatingWindow extends RelativeLayout {
     private class FloatingViewOnTouchListener implements
             OnGestureListener {
 
+        // TODO remove it
+        @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
         @Override
         public boolean onDown(MotionEvent e) {
             floatingView.setX(e.getX());
@@ -61,32 +65,27 @@ public class FloatingWindow extends RelativeLayout {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                float velocityY) {
-            // TODO Auto-generated method stub
             return false;
         }
 
         @Override
         public void onLongPress(MotionEvent e) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
                                 float distanceX, float distanceY) {
-            // TODO Auto-generated method stub
             return false;
         }
 
         @Override
         public void onShowPress(MotionEvent e) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
-            // TODO Auto-generated method stub
             return false;
         }
 

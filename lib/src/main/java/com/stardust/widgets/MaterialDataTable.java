@@ -1,6 +1,7 @@
 package com.stardust.widgets;
 
 import android.content.Context;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -19,6 +20,8 @@ import java.util.List;
  * Created by Stardust on 2016/10/26.
  */
 
+// TODO support api 9
+@RequiresApi(11)
 public class MaterialDataTable extends RecyclerView {
 
     public interface SimpleDataProvider {

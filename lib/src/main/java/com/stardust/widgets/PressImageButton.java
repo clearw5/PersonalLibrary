@@ -1,9 +1,11 @@
 package com.stardust.widgets;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
@@ -35,6 +37,7 @@ public class PressImageButton extends ImageButton {
         init();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PressImageButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();

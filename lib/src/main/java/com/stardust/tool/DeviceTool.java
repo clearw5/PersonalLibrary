@@ -26,66 +26,61 @@ public class DeviceTool {
         }
         mArmArchitecture = new String[3];
         try {
-            //通过读取cpuinfo文件获取cpu信息
             InputStream is = new FileInputStream("/proc/cpuinfo");
             InputStreamReader inputStreamReader = new InputStreamReader(is);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            try {
-                String nameProcessor = "Processor";
-                String nameFeatures = "Features";
-                String nameModel = "model name";
-                String nameCpuFamily = "cpu family";
-                while (true) {
-                    String line = bufferedReader.readLine();
-                    String[] pair = null;
-                    if (line == null) {
-                        break;
-                    }
-                    pair = line.split(":");
-                    if (pair.length != 2)
-                        continue;
-                    String key = pair[0].trim();
-                    String val = pair[1].trim();
-                    if (key.compareTo(nameProcessor) == 0) {
-                        String n = "";
-                        for (int i = val.indexOf("ARMv") + 4; i < val.length(); i++) {
-                            String temp = val.charAt(i) + "";
-                            if (temp.matches("\\d")) {
-                                n += temp;
-                            } else {
-                                break;
-                            }
-                        }
-                        mArmArchitecture[0] = "ARM";
-                        mArmArchitecture[1] = n;
-                        continue;
-                    }
-
-                    if (key.compareToIgnoreCase(nameFeatures) == 0) {
-                        if (val.contains("neon")) {
-                            mArmArchitecture[2] = "neon";
-                        }
-                        continue;
-                    }
-
-                    if (key.compareToIgnoreCase(nameModel) == 0) {
-                        if (val.contains("Intel")) {
-                            mArmArchitecture[0] = "INTEL";
-                            mArmArchitecture[2] = "atom";
-                        }
-                        continue;
-                    }
-
-                    if (key.compareToIgnoreCase(nameCpuFamily) == 0) {
-                        mArmArchitecture[1] = val;
-                        continue;
-                    }
+            String nameProcessor = "Processor";
+            String nameFeatures = "Features";
+            String nameModel = "model name";
+            String nameCpuFamily = "cpu family";
+            while (true) {
+                String line = bufferedReader.readLine();
+                String[] pair = null;
+                if (line == null) {
+                    break;
                 }
-            } finally {
-                bufferedReader.close();
-                inputStreamReader.close();
-                is.close();
+                pair = line.split(":");
+                if (pair.length != 2)
+                    continue;
+                String key = pair[0].trim();
+                String val = pair[1].trim();
+                if (key.compareTo(nameProcessor) == 0) {
+                    String n = "";
+                    for (int i = val.indexOf("ARMv") + 4; i < val.length(); i++) {
+                        String temp = val.charAt(i) + "";
+                        if (temp.matches("\\d")) {
+                            n += temp;
+                        } else {
+                            break;
+                        }
+                    }
+                    mArmArchitecture[0] = "ARM";
+                    mArmArchitecture[1] = n;
+                    continue;
+                }
+
+                if (key.compareToIgnoreCase(nameFeatures) == 0) {
+                    if (val.contains("neon")) {
+                        mArmArchitecture[2] = "neon";
+                    }
+                    continue;
+                }
+
+                if (key.compareToIgnoreCase(nameModel) == 0) {
+                    if (val.contains("Intel")) {
+                        mArmArchitecture[0] = "INTEL";
+                        mArmArchitecture[2] = "atom";
+                    }
+                    continue;
+                }
+
+                if (key.compareToIgnoreCase(nameCpuFamily) == 0) {
+                    mArmArchitecture[1] = val;
+                }
             }
+            bufferedReader.close();
+            inputStreamReader.close();
+            is.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

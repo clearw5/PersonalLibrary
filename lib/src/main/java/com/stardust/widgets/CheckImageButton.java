@@ -122,17 +122,6 @@ public class CheckImageButton extends ImageButton implements View.OnClickListene
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Log.i(TAG, "onTouch:" + MotionEvent.actionToString(event.getAction()));
-        /*
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            setImageDrawable(true);
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            setState(!mIsChecked);
-        }
-        if (mOnTouchListener != null)
-            return mOnTouchListener.onTouch(v, event);
-        return false;
-        */
         return false;
     }
 

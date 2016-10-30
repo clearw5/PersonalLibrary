@@ -1,10 +1,13 @@
 package com.stardust.widgets;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -153,11 +156,13 @@ public class RingButtonLayout extends LinearLayout {
         init();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public RingButtonLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RingButtonLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();

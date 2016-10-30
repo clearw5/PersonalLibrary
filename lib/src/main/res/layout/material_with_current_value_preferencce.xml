@@ -46,7 +46,7 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:fontFamily="sans-serif"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="16sp"
                 tools:text="Title" />
@@ -76,7 +76,7 @@
             android:layout_centerVertical="true"
             android:fadingEdge="horizontal"
             android:fontFamily="sans-serif"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="?android:textColorSecondary"
             android:textSize="16sp"
             tools:text="Current" />

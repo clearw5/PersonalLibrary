@@ -20,7 +20,7 @@ public class Pointer64 extends Pointer {
 
     @Override
     public void setAddress(int address) {
-        setAddress(address);
+        setAddress((long) address);
     }
 
     public long getAddress64() {

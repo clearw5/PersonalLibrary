@@ -43,7 +43,7 @@ public class SharedPreferencesTool {
                 Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -98,7 +98,7 @@ public class SharedPreferencesTool {
                 Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -153,7 +153,7 @@ public class SharedPreferencesTool {
                 Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.putFloat(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -182,7 +182,7 @@ public class SharedPreferencesTool {
                 Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean readBoolean(Context context, String spName, String key,
@@ -197,6 +197,6 @@ public class SharedPreferencesTool {
                 Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 }
