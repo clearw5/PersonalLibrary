@@ -27,15 +27,17 @@ public class FunctionHelper {
             if (i >= args.length) {
                 return i;
             }
-            if (!typeEquals(parameterTypes[i], args[i].getClass())) {
+            if (!isAssignableFrom(parameterTypes[i], args[i].getClass())) {
                 return 0;
             }
         }
         return args.length + 1;
     }
 
-    public static boolean typeEquals(Class<?> lhs, Class<?> rhs) {
-        return getBoxType(lhs) == getBoxType(rhs);
+    public static boolean isAssignableFrom(Class<?> lhs, Class<?> rhs) {
+        Class<?> l = getBoxType(lhs);
+        Class<?> r = getBoxType(rhs);
+        return l.isAssignableFrom(r);
     }
 
     public static Class<?> getBoxType(Class<?> c) {
