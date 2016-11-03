@@ -23,18 +23,22 @@ public abstract class XmlDataObject {
             switch (eventType) {
                 case XmlPullParser.START_TAG:
                     String name = parser.getName();
+                    boolean valid = false;
                     if (name.equals(target.getTagName())) {
                         for (String attribute : attributes) {
                             String value = parser.getAttributeValue(null, attribute);
                             if (value != null) {
                                 try {
                                     target.setAttribute(attribute, value);
+                                    valid = true;
                                 } catch (NoSuchFieldException e) {
                                     e.printStackTrace();
                                     throw new XmlPullParserException("找不到字段: " + attribute, parser, e);
                                 }
                             }
                         }
+                        if (!valid)
+                            continue;
                         do {
                             eventType = parser.next();
                         } while (eventType != XmlPullParser.END_TAG);

@@ -1,5 +1,8 @@
 import com.stardust.function.function;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -12,16 +15,16 @@ public class Test {
     @org.junit.Test
     public void dynamicFunctionTest() throws Exception {
         function<Integer> mul = new function<Integer>() {
-            int multiply(int i, int j) {
-                return i * j;
+            int sum(List<Short> list) {
+                int sum = 0;
+                for (int i : list) {
+                    sum += i;
+                }
+                return sum;
             }
         };
-        function<Integer> mul5 = mul.bind(5);
-        int i = mul5.call(4);
-        assertEquals(i, 20);
-    }
-
-    private void test(Object foo) {
+        List<Integer> list = Arrays.asList(1, 2, 3);
+        assertEquals((int) mul.call(list), 6);
     }
 
     public static int foo(function<Integer> op) {
