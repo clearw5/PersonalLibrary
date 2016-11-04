@@ -37,12 +37,13 @@ public abstract class XmlDataObject {
                                 }
                             }
                         }
-                        if (!valid)
-                            continue;
-                        do {
-                            eventType = parser.next();
-                        } while (eventType != XmlPullParser.END_TAG);
-                        return;
+                        if (valid) {
+                            do {
+                                eventType = parser.next();
+                            }
+                            while (eventType != XmlPullParser.END_TAG && eventType != XmlPullParser.END_DOCUMENT);
+                            return;
+                        }
                     }
                     break;
                 case XmlPullParser.END_DOCUMENT:
