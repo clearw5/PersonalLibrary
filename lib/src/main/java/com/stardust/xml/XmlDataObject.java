@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Stardust on 2016/11/3.
@@ -14,7 +16,14 @@ import java.util.List;
 
 public abstract class XmlDataObject {
 
+    public interface OnFieldChangeListener<T extends XmlDataObject> {
+        void onFieldValueChange(T xmlDataObject, String fieldName, String newValue);
+    }
+
     private static final String TAG = "XmlObject";
+    private OnFieldChangeListener mOnFieldChangeListener;
+    private Map<String, OnFieldChangeListener> mOnFieldChangeListenerMap = new TreeMap<>();
+
 
     public static <T extends XmlDataObject> void parse(T target, XmlPullParser parser) throws XmlPullParserException, IOException {
         String[] attributes = target.getAttributeNames();
@@ -29,7 +38,7 @@ public abstract class XmlDataObject {
                             String value = parser.getAttributeValue(null, attribute);
                             if (value != null) {
                                 try {
-                                    target.setAttribute(attribute, value);
+                                    target.setAttributeInternal(attribute, value);
                                     valid = true;
                                 } catch (NoSuchFieldException e) {
                                     e.printStackTrace();
@@ -107,6 +116,31 @@ public abstract class XmlDataObject {
     }
 
     protected abstract String getTagName();
+
+    @SuppressWarnings("unchecked")
+    protected <T extends XmlDataObject> void setAttributeInternal(String attribute, String value) throws NoSuchFieldException {
+        setAttribute(attribute, value);
+        OnFieldChangeListener listener = mOnFieldChangeListenerMap.get(attribute);
+        if (listener != null) {
+            listener.onFieldValueChange(this, attribute, value);
+        }
+        if (mOnFieldChangeListener != null) {
+            mOnFieldChangeListener.onFieldValueChange(this, attribute, value);
+        }
+    }
+
+    public void setOnFieldChangeListener(OnFieldChangeListener listener) {
+        mOnFieldChangeListener = listener;
+    }
+
+    public void setOnFieldChangeListener(String fieldName, OnFieldChangeListener listener) {
+        mOnFieldChangeListenerMap.put(fieldName, listener);
+    }
+
+    public void removeOnFieldChangeListener(String fieldName) {
+        mOnFieldChangeListenerMap.remove(fieldName);
+    }
+
 
     protected abstract void setAttribute(String attribute, String value) throws NoSuchFieldException;
 
